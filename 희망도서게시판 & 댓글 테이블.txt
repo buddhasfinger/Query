@@ -1,0 +1,66 @@
+4월 11일  (!! 댓글 기능은 테이블만 만들고, 기능은 미완성)
+-----------------------------------------------------------------------------------
+
+create table HBook(  --희망도서신청게시판 생성
+HB_seq number(10),
+HB_user varchar2(20),
+HB_title varchar2(60),
+HB_content varchar2(400),
+HB_date date,
+HB_hit number(4));
+
+--시퀀스 생성--
+create sequence hb_seq
+increment by 1
+start with 1
+minvalue 1
+maxvalue 200
+nocycle
+
+--commit;
+
+desc hbook;
+select * from hbook;
+
+--dummy 데이터 입력--
+
+insert into hbook values(
+hb_seq.nextval,'사나','전설의 피노키오 신청합니다','2021년 sf판 우주대서사시 피노키오 좀 비치해주세요',sysdate,'0');
+insert into hbook values(
+hb_seq.nextval,'다연','석기시대의 아이돌','역사연구에 필요합니다. 비치해주세요',sysdate,'0');
+insert into hbook values(
+hb_seq.nextval,'김나연','매운맛좀 볼래?','날씨가 춥습니다. 뜨거운 책 비치해주세요',sysdate,'0');
+insert into hbook values(
+hb_seq.nextval,'슈화','G-idle will be the best girl group in the world by 2021','진짜루야',sysdate,'0');
+insert into hbook values(
+hb_seq.nextval,'미연','먼나라 이웃나라','먼나라 이웃나라 도서 신청 합니다.',sysdate,'0');
+insert into hbook values(
+hb_seq.nextval,'수지','80일간의 세계일주 읽고 싶어요','80일간의 세계일주 읽고 싶어요. 희망도서신청 합니다. 감사합니다.',sysdate,'0');
+insert into hbook values(
+hb_Seq.nextval,'미연','장화홍련 도서 신청합니다','예전부터 읽고 싶은 책인데 없네요 ㅠ',sysdate,'0');
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+----댓글 테이블 생성(답글 형식 아니여서 따로 만듬)--
+
+create table hrwrite(
+hrw_Seq number(4),
+hrw_User varchar2(20),
+hrw_Content varchar2(400),
+hrw_Date date,
+hrw_Group number(10); --본문글과 매칭되야 함
+
+--시퀀스 생성--
+create sequence hrw_seq
+increment by 1
+start with 1
+minvalue 1
+maxvalue 200
+nocycle
+
+--데이터 입력--
+insert into hrwrite values(
+hrw_seq.nextval,'유진','저도 이 책 읽고 싶어요',sysdate,'26');
+insert into hrwrite values(
+hrw_seq.nextval,'관리자','희망도서 대기 목록에 등록 하였습니다. 비치 후 다시 댓글로 알려 드리겠습니다.',sysdate,'26');
+
+--commit;
