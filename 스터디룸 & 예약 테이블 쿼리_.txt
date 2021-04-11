@@ -1,0 +1,87 @@
+4월11일 (!!로그인을 위해서 lmember에 lm_pw를 추가함)
+
+-----------------------------------------------------------------------
+
+create table studyroom(  --스터디룸 테이블(예약테이블은 따로있음)
+SR_Id number(2) primary key not null,
+SR_Name varchar2(30),
+SR_Info varchar2(200),
+SR_Situation number(1));
+
+
+create sequence sr_seq --스터디룸 id 시퀀스
+increment by 1
+start with 1
+minvalue 1
+maxvalue 1000
+nocycle;
+
+desc studyroom;
+select * from studyroom;
+
+--스터디룸 dummy 데이터 입력--
+insert into studyroom values(
+sr_seq.nextval,'2층 1스터디룸','4인실',0);
+insert into studyroom values(
+sr_seq.nextval,'2층 2스터디룸','6인실',0);
+insert into studyroom values(
+sr_seq.nextval,'3층 3스터디룸','4인실',0);
+insert into studyroom values(
+sr_seq.nextval,'3층 4스터디룸','8인실',0);
+insert into studyroom values(
+sr_seq.nextval,'3층 5스터디룸','10인실',0);
+------------------------------------------------------------------------
+
+create table roombooking( --스터디룸 예약테이블
+RB_Id number(7) primary key not null,
+SR_Id number(2),--스터디룸 방번호
+RB_Date varchar2(16),
+RB_Time number(2),
+RB_Minute number(2),
+LM_Id number(4), --유저 id
+RB_Info varchar2(200),
+foreign key(SR_Id) references studyroom(SR_Id),
+foreign key(LM_Id) references lmember(LM_Id));
+
+create sequence rb_seq --예약번호 시퀀스
+increment by 1
+start with 1
+minvalue 1
+maxvalue 3000
+nocycle;
+
+desc roombooking;
+select * from roombooking;
+
+--스터디룸 예약 dummy 데이터 입력--
+insert into roombooking values(
+1,1,'2021-04-08',12,0,1234,'');
+insert into roombooking values(
+2,1,'2021-04-08',15,0,2345,'');
+insert into roombooking values(
+3,1,'2021-04-08',17,0,3456,'');
+----------------------------------------------------------------
+
+create table lmember(  --임시 멤버테이블
+lm_id number(4) primary key not null,
+lm_pw varchar2(20),
+lm_name varchar2(20),
+lm_tel varchar2(13),
+lm_email1 varchar2(20),
+lm_email2 varchar2(20)
+);
+
+desc lmember;
+select * from lmember;
+
+--회원 dummy 데이터입력--
+insert into lmember values(
+111,'1234','관리자','010-1234-5678','','');
+insert into lmember values(
+1234,'1234','예슈화','010-1234-5678','','');
+insert into lmember values(
+2345,'1234','배수지','010-1234-5678','','');
+insert into lmember values(
+3456,'1234','메이플','010-1234-5678','','');
+
+--commit;--
