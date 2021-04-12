@@ -47,7 +47,7 @@ hrw_Seq number(4),
 hrw_User varchar2(20),
 hrw_Content varchar2(400),
 hrw_Date date,
-hrw_Group number(10); --본문글과 매칭되야 함
+hrw_Group number(10)); --본문글과 매칭되야 함
 
 --시퀀스 생성--
 create sequence hrw_seq
