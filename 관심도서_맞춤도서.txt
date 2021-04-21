@@ -1,0 +1,30 @@
+1. lmember table에 lm_favor 칼럼 추가 alter table lmember add lm_favor varchar2(500) null;
+
+2. memberdto에 String lm_favor; 변수 추가
+
+3. join.jsp에 체크박스 추가
+<dl id="join_job_dl">
+	<dt>
+	    <label for="job">관심분야</label>
+						
+	</dt>
+	    <dd>
+		<input type="checkbox" name="lm_favor" id="lm_favor" value="경제"><label>경제</label>
+		<input type="checkbox" name="lm_favor" id="lm_favor" value="소설"><label>소설</label>
+		<input type="checkbox" name="lm_favor" id="lm_favor" value="IT과학"><label>IT과학</label>
+		<input type="checkbox" name="lm_favor" id="lm_favor" value="여행"><label>여행</label>
+		<input type="checkbox" name="lm_favor" id="lm_favor" value="종교"><label>종교</label>
+		<input type="checkbox" name="lm_favor" id="lm_favor" value="잡지"><label>잡지</label><br>
+	    </dd>
+	</dl>
+4. 자바스크립트에 체크박스 배열담아서 Ajax에 태우는 매소드 추가
+
+	//관심분야 배열저장
+ 	var favors = [];
+ 	$('input[name="lm_favor"]:checked').each(function(i){
+ 		favors.push($(this).val());
+ 	});
+----------------------------------------------------------------------
+$.ajax({  데이터에 아래 값 담기
+"lm_favor":favors
+----------------------------------------------------------------------
