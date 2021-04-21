@@ -1,0 +1,26 @@
+create table lmember(
+lm_id number(4) primary key,
+lm_name varchar2(20),
+lm_tel1 varchar2(13),
+lm_email1 varchar2(20),
+lm_email2 varchar2(20),
+lm_pw1 varchar2(20),
+lm_user varchar2(30),
+lm_address1 varchar2(50),
+lm_address2 varchar2(50),
+lm_birth_year varchar2(30),
+lm_birth_month varchar2(30),
+lm_birth_day varchar2(30),
+lm_gender varchar2(20),
+lm_job varchar2(20),
+lm_date date,
+lm_pw2 varchar2(20));
+
+alter table lmember add lm_favor varchar2(500) null;
+
+create sequence member_seq
+start with 1
+increment by 1
+maxvalue 1000
+minvalue 1
+nocycle;
