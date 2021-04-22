@@ -28,3 +28,41 @@
 $.ajax({  데이터에 아래 값 담기
 "lm_favor":favors
 ----------------------------------------------------------------------
+
+4월22일
+ㄱ. LibraryMainController에 String main(@RequestParam @Nullable String lm_user , 로 매개변수 받고
+ 		//유저 맞춤도서 5개
+		map.put("favorbooks", mainService.favorbooks(lm_user));
+		model.addAttribute("map", map);
+		return "main";
+매소드 생성.
+
+ㄴ. 서비스,임플리먼트에 관심도서 불러오는 매소드 생성 , MainMapper에 인터페이스 생성
+ㄷ. mapper_bestsell.xml에 쿼리생성
+
+  <!--유저 관심도서 불러오기 -->
+    <select id="selectFavorBooks" resultType="String">
+		select lm_favor from lmember where lm_user=#{lm_user}
+  </select>  
+여기까지가 유저 관심도서 불러와서 배열에 저장완료.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ㄱ. book테이블에 하위카테고리 생성 alter table book add bk_scate varchar2(30); 
+ㄴ. BookDto에 private String bk_scate; 추가 (bookDto와 연결된 모든 sql 쿼리문 추가된 변수 더해서 수정해야함!)
+ㄷ. 하위카테고리가 입력된 dummy 도서 입력.
+
+--카테고리별 1,2,3, 3개씩 입력--
+insert into book values(book_seq.nextval,'귀멸의 솜사탕1','박재영',
+'jyp',9791158250676,'국내도서','☆☆☆☆★',3,'착한 괴물을 괴롭히는 네즈코..',0,'1.jpg','경제');
+insert into book values(book_seq.nextval,'빈센조1','박재영',
+'jyp',9791158250676,'국내도서','☆☆☆☆★',3,'이탈리아 제페토 할아버지가..',0,'1.jpg','소설');
+insert into book values(book_seq.nextval,'시지프스1','박재영',
+'jyp',9791158250676,'국내도서','☆☆☆☆★',3,'박신혜의 매력발산,조승우..',0,'1.jpg','IT과학');
+insert into book values(book_seq.nextval,'사랑의 불시착1','박재영',
+'jyp',9791158250676,'국내도서','☆☆☆☆★',3,'현빈의 북조선 러브스토리..',0,'1.jpg','여행');
+insert into book values(book_seq.nextval,'전원일기1','박재영',
+'jyp',9791158250676,'국내도서','☆☆☆☆★',3,'대추나무사랑걸렸네..',0,'1.jpg','종교');
+insert into book values(book_seq.nextval,'막심1','박재영',
+'jyp',9791158250676,'국내도서','☆☆☆☆★',3,'건전한 취미생활..',0,'1.jpg','잡지');
+
+ㄹ. 임플리먼트의 favorbooks 매소드에 실행문 작성
+ㄷ. 맵퍼와 xml에 인터페이스와 쿼리문 작성
