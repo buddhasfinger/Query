@@ -50,7 +50,7 @@ $.ajax({  데이터에 아래 값 담기
 ㄴ. BookDto에 private String bk_scate; 추가 (bookDto와 연결된 모든 sql 쿼리문 추가된 변수 더해서 수정해야함!)
 ㄷ. 하위카테고리가 입력된 dummy 도서 입력.
 
---카테고리별 1,2,3, 3개씩 입력--
+--카테고리별 1,2,3,4,5 5개씩 입력--
 insert into book values(book_seq.nextval,'귀멸의 솜사탕1','박재영',
 'jyp',9791158250676,'국내도서','☆☆☆☆★',3,'착한 괴물을 괴롭히는 네즈코..',0,'1.jpg','경제');
 insert into book values(book_seq.nextval,'빈센조1','박재영',
@@ -66,3 +66,4 @@ insert into book values(book_seq.nextval,'막심1','박재영',
 
 ㄹ. 임플리먼트의 favorbooks 매소드에 실행문 작성
 ㄷ. 맵퍼와 xml에 인터페이스와 쿼리문 작성
+
