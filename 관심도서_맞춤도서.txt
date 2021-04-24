@@ -66,4 +66,20 @@ insert into book values(book_seq.nextval,'막심1','박재영',
 
 ㄹ. 임플리먼트의 favorbooks 매소드에 실행문 작성
 ㄷ. 맵퍼와 xml에 인터페이스와 쿼리문 작성
+-----------------------------------------------------------------------------------------------------------------------
+4월24일
+
+1. 서비스 임플리먼트에 매소드 구현 완료
+2. 이제부터 main페이지로 넘어오는 LINK마다 lm_user={session_user}를 붙여줘야 함.
+3. 또한 main의 컨트롤러에 null 체크를 해줘야 최초로 메인에 접속 할때 에러가 안생김. (다른 페이지에서 넘어오는거면 @Nullable이 걸러주지만, 최초 접속 때는 따로 걸러줘야함).
+3-1. String tempStr = (lm_user==null)?"":lm_user;		
+		favorbook = mainService.favorbooks(tempStr);
+		
+4. header/listhead/join/login/logout 까지는 main으로 오는 링크에 lm_user를 실어줬음
+4-1. header와 listhead 에는 main?lm_user=${session_user} 로 넣어주고
+4-2.join/login처럼 Ajax로 하는데는   var sessionUId = "<%=session.getAttribute("session_user") %>" --> location.href="../main?lm_user=sessionUId";
+4-3. logout처럼 세션이 만료된데는 location.href="/main?lm_user=''"; 을 넣어줬음
+5. 다른 페이지들도 main으로 넘어오는 링크가 있는지 찾아봐야 함.
+
+
 
