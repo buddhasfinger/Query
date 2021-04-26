@@ -46,7 +46,7 @@ $.ajax({  데이터에 아래 값 담기
   </select>  
 여기까지가 유저 관심도서 불러와서 배열에 저장완료.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-ㄱ. book테이블에 하위카테고리 생성 alter table book add bk_scate varchar2(30); 
+ㄱ. book테이블에 하위카테고리 생성 alter table book add bk_subcate varchar2(30); 
 ㄴ. BookDto에 private String bk_scate; 추가 (bookDto와 연결된 모든 sql 쿼리문 추가된 변수 더해서 수정해야함!)
 ㄷ. 하위카테고리가 입력된 dummy 도서 입력.
 
@@ -80,6 +80,10 @@ insert into book values(book_seq.nextval,'막심1','박재영',
 4-2.join/login처럼 Ajax로 하는데는   var sessionUId = "<%=session.getAttribute("session_user") %>" --> location.href="../main?lm_user=sessionUId";
 4-3. logout처럼 세션이 만료된데는 location.href="/main?lm_user=''"; 을 넣어줬음
 5. 다른 페이지들도 main으로 넘어오는 링크가 있는지 찾아봐야 함.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
 
 
 
