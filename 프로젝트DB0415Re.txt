@@ -1,0 +1,259 @@
+-----------------------------------------------------------------------
+스터디룸 테이블(예약테이블은 따로있음) 재영/동규
+-----------------------------------------------------------------------
+create table studyroom(  
+SR_Id number(2) primary key not null,
+SR_Name varchar2(30),
+SR_Info varchar2(200),
+SR_Situation number(1));
+
+
+create sequence sr_seq --스터디룸 id 시퀀스
+increment by 1
+start with 1
+minvalue 1
+maxvalue 1000
+nocycle;
+
+desc studyroom;
+select * from studyroom;
+
+--스터디룸 dummy 데이터 입력--
+insert into studyroom values(
+sr_seq.nextval,'2층 1스터디룸','4인실',0);
+insert into studyroom values(
+sr_seq.nextval,'2층 2스터디룸','6인실',0);
+insert into studyroom values(
+sr_seq.nextval,'3층 3스터디룸','4인실',0);
+insert into studyroom values(
+sr_seq.nextval,'3층 4스터디룸','8인실',0);
+insert into studyroom values(
+sr_seq.nextval,'3층 5스터디룸','10인실',0);
+------------------------------------------------------------------------
+스터디룸 예약 테이블
+-----------------------------------------------------------------------
+create table roombooking(
+RB_Id number(7) primary key not null,
+SR_Id number(2),--스터디룸 방번호
+RB_Date varchar2(16),
+RB_Time number(2),
+RB_Minute number(2),
+LM_Id number(4), --유저 id
+RB_Info varchar2(200),
+foreign key(SR_Id) references studyroom(SR_Id),
+foreign key(LM_Id) references lmember(LM_Id));
+
+create sequence rb_seq --예약번호 시퀀스
+increment by 1
+start with 1
+minvalue 1
+maxvalue 3000
+nocycle;
+
+desc roombooking;
+select * from roombooking;
+
+--스터디룸 예약 dummy 데이터 입력--
+insert into roombooking values(
+1,1,'2021-04-08',12,0,1234,'');
+insert into roombooking values(
+2,1,'2021-04-08',15,0,2345,'');
+insert into roombooking values(
+3,1,'2021-04-08',17,0,3456,'');
+----------------------------------------------------------------
+회원가입 민철
+----------------------------------------------------------------
+create table lmember(
+lm_id number(4) primary key,
+lm_name varchar2(20),
+lm_tel1 varchar2(13),
+lm_email1 varchar2(20),
+lm_email2 varchar2(20),
+lm_pw1 varchar2(20),
+lm_user varchar2(30),
+lm_tel2 varchar2(20),
+lm_tel3 varchar2(20),
+lm_address1 varchar2(50),
+lm_address2 varchar2(50),
+lm_birth_year varchar2(30),
+lm_birth_month varchar2(30),
+lm_birth_day varchar2(30),
+lm_gender varchar2(20),
+lm_job varchar2(20),
+lm_date date,
+lm_pw2 varchar2(20));
+
+create sequence member_seq
+start with 1
+increment by 1
+maxvalue 1000
+minvalue 1
+nocycle;
+
+-------------------------------------------------------------
+시퀀스 수민/희제
+-------------------------------------------------------------
+도서
+---------
+create sequence book_seq 
+start with 1
+INCREMENT by 1
+maxvalue 1000
+minvalue 1
+nocycle;
+----------
+멤버
+---------
+create sequence member_seq 
+start with 1
+INCREMENT by 1
+maxvalue 1000
+minvalue 1
+nocycle;
+---------
+이벤트
+---------
+create sequence event_seq 
+start with 1
+INCREMENT by 1
+maxvalue 1000
+minvalue 1
+nocycle;
+---------
+대여
+---------
+create sequence breser_seq 
+start with 1
+INCREMENT by 1
+maxvalue 1000
+minvalue 1
+nocycle;
+--------
+예약
+--------
+create sequence booking_seq 
+start with 1
+INCREMENT by 1
+maxvalue 1000
+minvalue 1
+nocycle;
+------------------------------------------
+테이블
+------------------------------------------
+도서
+--------
+create table book(
+bk_id number(4) primary key not null,
+bk_bookname varchar2(50),
+bk_writer varchar2(30),
+bk_pub varchar2(30),
+bk_isbn varchar2(30),
+bk_nara varchar2(30),
+bk_star varchar2(20),
+bk_amount number(4),
+bk_content varchar2(4000),
+bk_hit number(4),
+bk_filename varchar2(50)
+);
+
+--삭제(hit는넘버) insert into book values(book_seq.nextval,'어린왕자','생텍쥐페리','브라운힐출판사',9791158250676,'해외도서','☆☆☆☆★',3,'하이하이','추천','1.jpg');
+insert into book values(book_seq.nextval,'어린왕자','생텍쥐페리','브라운힐출판사',9791158250676,'해외도서','☆☆☆☆★',3,'하이하이',0,'1.jpg');
+
+
+insert into lmember values(member_seq.nextval,'유관순','010-1111-1111','admin','@naver.com','1234','admin');
+--------
+이벤트
+--------
+create table event(
+le_id number(3) primary key,
+le_category varchar2(30),
+le_title varchar2(50),
+le_content varchar2(2000),
+le_filename varchar2(60),
+le_date date,
+le_enddate date);
+
+insert into event values(event_seq.nextval,'이벤트','이벤트 제목','이벤트 내용','1.jpg',sysdate,'2021-05-10');
+-------
+대여
+-------
+create table breservation(
+br_id number(4) primary key,
+bk_id number(4),
+lm_id number(4),
+br_sdate date,
+br_edate date,
+foreign key (bk_id) references book(bk_id),
+foreign key (lm_id) references lmember(lm_id));
+
+--(bk_id랑lm_id값을 1또는 새로 설정한 seq값으로 해야 에러안남 )insert into breservation values(breser_seq.nextval,22,23,sysdate,sysdate+14);
+-------
+예약
+-------
+create table booking(
+lb_id number(4) primary key,
+bk_id number(4),
+lm_id number(4),
+lb_sdate date,
+lb_edate date,
+foreign key (bk_id) references book(bk_id),
+foreign key (lm_id) references lmember(lm_id));
+
+--(bk_id랑lm_id값을 1또는 새로 설정한 seq값으로 해야 에러안남 )insert into booking values(booking_seq.nextval,21,21,sysdate,sysdate+7);
+-------
+
+자유게시판,댓글
+-----------
+create table freeboard_comment(
+commentno varchar2(30) primary key,
+bid number(4),
+commentname varchar2(20),
+commentcontent varchar2(2000),
+commentdate date);
+
+create table free_board(
+bid number(4) primary key,
+bname varchar2(50),
+btitle varchar2(100),
+bcontent varchar2(2000),
+bdate date,
+bhit number(4),
+bgroup number(4),
+bstep number(4),
+bindent number(4),
+filename varchar2(100));
+
+create sequence com_seq
+increment by 1
+start with 1
+minvalue 1
+maxvalue 999
+nocycle
+nocache;
+
+create sequence freeboard_seq
+increment by 1
+start with 1
+minvalue 1
+maxvalue 999
+nocycle
+nocache;
+----------
+공지사항
+----------
+create table lnotice_board( 
+NT_NUM NUMBER(5) primary key not null,  
+NT_TITLE VARCHAR2(2000),
+NT_CONTENT VARCHAR2(2000), 
+NT_DATE DATE,           
+NT_HIT NUMBER(5),      
+FILENAME VARCHAR2(200));
+
+
+--board_seq를 수업중에 사용했었음. 일반 게시판용도여서 그냥 쓰던거 써도 될듯--
+create SEQUENCE board_seq
+INCREMENT by 1  --1번부터 시작
+start with 1
+minvalue 1
+maxvalue 500
+nocycle;
