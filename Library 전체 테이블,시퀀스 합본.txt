@@ -220,6 +220,21 @@ minvalue 1
 maxvalue 200
 nocycle
 
+insert into hbook values(
+hb_seq.nextval,'사나','전설의 피노키오 신청합니다','2021년 sf판 우주대서사시 피노키오 좀 비치해주세요',sysdate,'0');
+insert into hbook values(
+hb_seq.nextval,'다연','석기시대의 아이돌','역사연구에 필요합니다. 비치해주세요',sysdate,'0');
+insert into hbook values(
+hb_seq.nextval,'김나연','매운맛좀 볼래?','날씨가 춥습니다. 뜨거운 책 비치해주세요',sysdate,'0');
+insert into hbook values(
+hb_seq.nextval,'슈화','G-idle will be the best girl group in the world by 2021','진짜루야',sysdate,'0');
+insert into hbook values(
+hb_seq.nextval,'미연','먼나라 이웃나라','먼나라 이웃나라 도서 신청 합니다.',sysdate,'0');
+insert into hbook values(
+hb_seq.nextval,'수지','80일간의 세계일주 읽고 싶어요','80일간의 세계일주 읽고 싶어요. 희망도서신청 합니다. 감사합니다.',sysdate,'0');
+insert into hbook values(
+hb_Seq.nextval,'미연','장화홍련 도서 신청합니다','예전부터 읽고 싶은 책인데 없네요 ㅠ',sysdate,'0');
+
 create table hrwrite(
 hrw_Seq number(4),
 hrw_User varchar2(20),
