@@ -1,0 +1,31 @@
+
+create table sbmember(
+lm_user varchar2(20) primary key,
+lm_pw1 varchar2(20),
+lm_nname varchar2(20));
+
+insert into sbmember values(
+'admin','1111','admin'
+);
+
+create table secret_board(
+bid number(3) primary key,
+bhit number(3),
+bgroup number(3),
+bstep number(3),
+bindent number(3),
+lm_user varchar2(20),
+btitle varchar2(20),
+bcontent varchar2(500),
+bfilename varchar2(50),
+bdate date,
+bpw varchar2(10) null,
+foreign key (lm_user) references sbmember(lm_user)
+);
+--lm_user는 쪼인해서 쓰던가, 추가해 줘야함
+
+select * from sbmember;
+select count(*) from sbmember;
+
+select * from secret_board;
+desc secret_board;
